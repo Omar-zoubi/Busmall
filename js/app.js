@@ -19,7 +19,7 @@ function Market(name ,source){
     this.source=source;
     objArr.push(this);
     this.vote=0;
-    this.show=0;
+    this.show=0; 
 
 
 }
