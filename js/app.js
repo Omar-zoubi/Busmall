@@ -1,126 +1,127 @@
-'use strict';
+'use strict'
+
+let maxClick =25;
+let attempt=0;
+
+let img1= document.getElementById('firstimg');
+let img2=document.getElementById('secondimg');
+let img3=document.getElementById('3rdimg');
+
+let button=document.getElementById('B1')
+let cont =document.getElementById('div1');
+let ulist= document.getElementById('unlist');
+let objArr =[];
 
 
-let maximumClicks = 25;
-let attempts = 0;
 
-let leftImageElement = document.getElementById('leftImage');
-let middleImageElement = document.getElementById('midleImage');
-let rightImageElement = document.getElementById('rightImage');
-let containerEl = document.getElementById('container');
+function Market(name ,source){
+    this.name= name ;
+    this.source=source;
+    objArr.push(this);
+    this.vote=0;
+    this.show=0;
 
 
-let arrOfObjects = [];
-function Market(name, source){
-    this.name = name;
-    this.source = source;
-    this.votes = 0;
-    this.showen=0;
-    arrOfObjects.push(this);
 }
-new Market('bag','img/bag.jpg');
-new Market('banana','img/banana.jpg');
-new Market('bathroom','img/bathroom.jpg');
-new Market('boots','img/boots.jpg');
-new Market('breakfast','img/breakfast.jpg');
-new Market('bubblegum','img/bubblegum.jpg');
-new Market('chair','img/chair.jpg');
-new Market('cthulhu','img/cthulhu.jpg');
-new Market('dog-duck','img/dog-duck.jpg');
-new Market('dragon','img/dragon.jpg');
-new Market('pen','img/pen.jpg');
-new Market('pet-sweep','img/pet-sweep.jpg');
-new Market('scissors','img/scissors.jpg');
-new Market('shark','img/shark.jpg');
-new Market('sweep','img/sweep.png');
-new Market('tauntaun','img/tauntaun.jpg');
-new Market('unicorn','img/unicorn.jpg');
-new Market('usb','img/usb.gif');
-new Market('water','img/water-can.jpg');
-new Market('win','img/wine-glass.jpg');
+
+new Market('Bag','img/bag.jpg');
+new Market('Banana','img/banana.jpg');
+new Market('Bathroom','img/bathroom.jpg');
+new Market('Boots','img/boots.jpg');
+new Market('Breakfast','img/breakfast.jpg');
+new Market('Bubblegum','img/bubblegum.jpg');
+new Market('Chair','img/chair.jpg');
+new Market('Cthulhu','img/cthulhu.jpg');
+new Market('Dog-duck','img/dog-duck.jpg');
+new Market('Dragon','img/dragon.jpg');
+new Market('Pen','img/pen.jpg');
+new Market('Pet-sweep','img/pet-sweep.jpg');
+new Market('Scissors','img/scissors.jpg');
+new Market('Shark','img/shark.jpg');
+new Market('Sweep','img/sweep.png');
+new Market('Tauntaun','img/tauntaun.jpg');
+new Market('Unicorn','img/unicorn.jpg');
+new Market('Usb','img/usb.gif');
+new Market('Water','img/water-can.jpg');
+new Market('Win','img/wine-glass.jpg');
 
 
+let firstIn =0;
+let secondIn=0;
+let theirdIn=0;
+
+function random_poss()
+{
+    let randomIndex = Math.floor(Math.random() * objArr.length); 
+    return randomIndex;
+
+}
 
 
+function renderThree()
+{
+    firstIn=random_poss();
+    secondIn=random_poss();
+    theirdIn=random_poss();
 
-
-
-
-
-
-let leftImageIndex;
-let middleImageIndex;
-let rightImageIndex;
-function renderThreeRandomImages(){
-    leftImageIndex = generateRandomIndex(); //1
-    middleImageIndex =generateRandomIndex();
-    rightImageIndex = generateRandomIndex(); 
-    
-
- 
-    while((leftImageIndex === rightImageIndex)||(leftImageIndex=== middleImageIndex)||(rightImageIndex === middleImageIndex))
+    while ((firstIn===secondIn)||(firstIn===theirdIn)||(theirdIn===secondIn))
     {
-        leftImageIndex = generateRandomIndex(); 
-        middleImageIndex= generateRandomIndex();
-        rightImageIndex=generateRandomIndex();
-
-     
+        firstIn=random_poss();
+        secondIn=random_poss();
+        theirdIn=random_poss();
     }
-    arrOfObjects[leftImageIndex].showen ++;
-    arrOfObjects[middleImageIndex].showen ++;
-    arrOfObjects[rightImageIndex].showen ++;
-    
-  
+    objArr[firstIn].show++;
+    objArr[secondIn].show++;
+    objArr[theirdIn].show++;
 
 
-    leftImageElement.setAttribute('src', arrOfObjects[leftImageIndex].source); 
-    middleImageElement.setAttribute('src',arrOfObjects[middleImageIndex].source);
-    rightImageElement.setAttribute('src', arrOfObjects[rightImageIndex].source);
+    img1.setAttribute('src',objArr[firstIn].source);
+    img2.setAttribute('src',objArr[secondIn].source);
+    img3.setAttribute('src',objArr[theirdIn].source);
+
 
 
 }
-renderThreeRandomImages();
+renderThree();
 
+function choosImg(event)
+{    
 
-
-function generateRandomIndex(){
-            
-     let randomIndex = Math.floor(Math.random() * arrOfObjects.length); 
-     return randomIndex;
-}
-
-
-containerEl.addEventListener('click', handleClicking);
-
-
-function handleClicking(event){
-    attempts++;
-  
-    if(attempts <= maximumClicks){
-        if(event.target.id === 'leftImage'){
-            arrOfObjects[leftImageIndex].votes++;
-            
-        }else if(event.target.id === 'rightImage'){
-            arrOfObjects[rightImageIndex].votes++;
-            
+    attempt++;
+    if (attempt<=maxClick)
+    {
+        if (event.target.id==="firstimg")
+        {
+            objArr[firstIn].vote++;
+        }else if (event.target.id==="secondimg")
+        {
+            objArr[secondIn].vote++;
         }else {
-            arrOfObjects[middleImageIndex].votes++;
-            
-            }
-        renderThreeRandomImages();
-        console.log(arrOfObjects);
-    }else{
-        let unorderdList = document.getElementById('unList');
-        let li;
-        for(let i = 0 ; i < arrOfObjects.length; i++){
-            li = document.createElement('li');
-            unorderdList.appendChild(li);
-                                             
-            li.textContent = `${arrOfObjects[i].name} it has ${arrOfObjects[i].votes} Votes. and also it had been showen  ${arrOfObjects[i].showen}`
+            objArr[theirdIn].vote++;
         }
+        renderThree();
 
-        containerEl.removeEventListener('click', handleClicking);
-          
+    }else
+    {
+        cont.removeEventListener('click', choosImg);
+
+        button.addEventListener('click',resultFun);
     }
+}
+
+
+cont.addEventListener('click',choosImg);
+let a=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,1,15,16,17,18,19,20,21,22,23,24,25];
+function resultFun()
+{
+    let unorList =document.getElementById('unlist');
+    let li
+    for (let i = 0; i<objArr.length;i++)
+    {li =document.createElement('li')
+     unorList.appendChild(li);
+     li.textContent=`${i+1}. ${objArr[i].name} has ${objArr[i].vote} vote and it had been showen ${objArr[i].show} times.`;
+
+    }
+    button.removeEventListener('click',resultFun);
 
 }

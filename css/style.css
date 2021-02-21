@@ -2,3 +2,40 @@ img {
     width: 33% ;
     height: 500px;
 }
+body{
+    background-color: antiquewhite;
+}
+button{
+    text-align: center;
+    position: relative;
+    left: 50%;
+    top: 100px;
+}
+#div1 {
+    position: relative;
+    top:75px;
+
+}
+h1 {
+    text-align: center;
+    position: relative;
+   top: 15px;
+   font-size: 45px;
+   font-family: 'Courier New', Courier, monospace;
+
+}
+h2 {
+    position:relative ;
+    top: 60px;
+    left: 15px;
+    font-size: 30px;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+ul li
+{   position: relative;
+    left:15px;
+    margin: 15px;
+    font-size: large;
+
+}
