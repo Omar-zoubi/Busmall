@@ -39,3 +39,9 @@ ul li
     font-size: large;
 
 }
+#Canvas {
+    position: relative;
+    top: 100px;
+    width : 75%;
+    left: 10%;
+} 
