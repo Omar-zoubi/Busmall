@@ -94,6 +94,7 @@ function renderThree()
 
 }
 
+
 function noRepeat()
 {
    
@@ -136,6 +137,7 @@ function choosImg(event)
         generatThree();
         noRepeat();
         renderThree();
+        
 
     }else
     {
@@ -147,8 +149,10 @@ function choosImg(event)
 }
 
 
+
+
 cont.addEventListener('click',choosImg);
-let a=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,1,15,16,17,18,19,20,21,22,23,24,25];
+
 function resultFun()
 {
     let unorList =document.getElementById('unlist');
@@ -158,9 +162,10 @@ function resultFun()
      unorList.appendChild(li);
      li.textContent=`${i+1}. ${objArr[i].name} has ${objArr[i].vote} vote and it had been showen ${objArr[i].show} times.`;
 
-}
-console.log(voteArr);
+    }
+    
     chartrender();
+    saveToLoc();
     button.removeEventListener('click',resultFun);
 
 }
@@ -203,3 +208,23 @@ var buyerData = new Chart(chrtJs,  {
 
 })
 }
+function saveToLoc()
+{
+    let locS= JSON.stringify(objArr);
+    localStorage.setItem('votes',locS);
+
+}
+
+function fixedRes()
+{
+    let prevR= localStorage.getItem('votes');
+    
+    if (prevR)
+    {objArr=JSON.parse(prevR);
+        resultFun(); 
+        chartrender();
+    }
+   
+}
+
+fixedRes();
